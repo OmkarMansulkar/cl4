@@ -1,0 +1,26 @@
+from collections import defaultdict
+
+def mapper(lines):
+    pairs = []
+    for line in lines:
+        name, score = line.strip().split()
+        pairs.append((name, int(score)))
+    return pairs
+
+def reducer(pairs):
+    student_scores = defaultdict(list)
+    for name, score in pairs:
+        student_scores[name].append(score)
+    
+    student_avg = {name: sum(scores)/len(scores) for name, scores in student_scores.items()}
+    return student_avg
+
+with open("student_scores_multi_names.txt", "r") as f:
+    lines = f.readlines()
+
+mapped_data = mapper(lines)
+averages = reducer(mapped_data)
+
+for student, avg in sorted(averages.items()):
+    print(f"{student}: Average Score = {avg:.2f}")
+

@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("titanic_dataset.csv")
+
+deaths = df[df["Survived"] == 0]
+
+gender_casualties = deaths["Sex"].value_counts()
+print("Gender-based Titanic Casualties:")
+for gender, count in gender_casualties.items():
+    print(f"{gender.capitalize()}: {count} deaths")
+
+
+male_deaths = deaths[(deaths["Sex"] == "male") & (deaths["Age"].notnull())]
+
+plt.figure(figsize=(8, 5))
+plt.hist(male_deaths["Age"], bins=15, color="blue", edgecolor="black")
+plt.title("Age Distribution of Deceased Males")
+plt.xlabel("Age")
+plt.ylabel("Number of Males")
+plt.grid(True)
+plt.show()
+
+female_deaths = deaths[deaths["Sex"] == "female"]
+class_counts = female_deaths["Pclass"].value_counts().sort_index()
+
+plt.figure(figsize=(6, 5))
+plt.bar(class_counts.index.astype(str), class_counts.values, color="pink", edgecolor="black")
+plt.title("Deceased Females by Passenger Class")
+plt.xlabel("Passenger Class")
+plt.ylabel("Number of Females")
+plt.grid(axis='y')
+plt.show()
