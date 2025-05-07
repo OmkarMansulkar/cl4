@@ -2,8 +2,8 @@ use school
 
 db.students.insertOne({ name: "Anshika", age: 22, course: "AI" })
 
-db.students.find({ name: "Anshika" })           // Find specific
-db.students.find().pretty()                     // Find all, formatted
+db.students.find({ name: "Anshika" })           
+db.students.find().pretty()                    
 
 db.students.updateOne(
   { name: "Anshika" },
